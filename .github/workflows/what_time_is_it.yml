@@ -5,5 +5,5 @@ jobs:
   date:
     runs-on: ubuntu-latest
     steps:
-      - name: date
+      - name: test
         run: date
