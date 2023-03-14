@@ -1,5 +1,5 @@
 name: repository_size
-run-name: "yes"
+run-name: "Giving me the size"
 on: [push]
 jobs:
   size:
@@ -7,3 +7,4 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - run: echo "${GITHUB_REF#refs/heads/}"
+      - run: du -skh --exclude=".git"
