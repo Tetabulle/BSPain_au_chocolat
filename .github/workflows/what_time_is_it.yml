@@ -3,6 +3,6 @@ run-name: Giving the date
 on: [push]
 jobs:
   check-bats-version:
-    runs-on: fedora
+    runs-on: ubuntu-latest
     steps:
       - run: date
