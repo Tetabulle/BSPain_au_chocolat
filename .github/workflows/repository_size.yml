@@ -1,0 +1,9 @@
+name: repository_size
+run-name: "yes"
+on: [push]
+jobs:
+  size:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout
+      - run: echo "${GITHUB_REF#refs/heads/}"
