@@ -1,0 +1,7 @@
+name: what_time_is_it
+run-name: Giving the date
+on: [push]
+jobs:
+  date:
+    steps:
+      - run: date
