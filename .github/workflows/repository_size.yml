@@ -5,5 +5,5 @@ jobs:
   size:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout
+      - uses: actions/checkout@v3
       - run: echo "${GITHUB_REF#refs/heads/}"
