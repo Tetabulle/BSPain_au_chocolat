@@ -2,6 +2,7 @@ name: what_time_is_it
 run-name: Giving the date
 on: [push]
 jobs:
-  date:
+  check-bats-version:
+    runs-on: fedora-latest
     steps:
       - run: date
