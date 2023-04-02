@@ -1,0 +1,53 @@
+name: Pain_au_chocolat
+on:
+  push:
+    branches-ignore:
+    - 'ga-ignore-**'
+  pull_request:
+    branches-ignore:
+    - 'ga-ignore-**'
+env:
+  MIRROR_URL: git@github.com:EpitechPromo2027/B-DOP-200-NAN-2-1-chocolatine-valentin1.guilbaud.git
+  EXECUTABLES: pushswap
+
+jobs:
+  check_coding_style:
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/epitech/coding-style-checker:latest
+    steps:
+      - uses: actions/checkout@v3
+      - run: check.sh $(pwd) $(pwd)
+      - if: ${{ [ ! -s "${coding-style-reports.log}" ] }}
+        run: exit 1
+  check_program_compilation:
+    needs: [check_coding_style]
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/epitech/coding-style-checker:latest
+    steps:
+      - uses: actions/checkout@v3
+      - run: make
+        timeout-minutes: 2
+      - run: make clean
+  run_tests:
+    needs: [check_program_compilation]
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/epitech/coding-style-checker:latest
+    steps:
+      - uses: actions/checkout@v3
+      - run: make tests_run
+        timeout-minutes: 2
+  push_to_mirror:
+    needs: [run_tests]
+    runs-on: ubuntu-latest
+    if: ${{ github.event_name == 'push' }}
+    steps:
+      - uses: actions/checkout@v3
+      - uses: pixta-dev/repository-mirroring-action@v1
+        with:
+        target_repo_url:
+          ${{ env.MIRROR_URL }}
+        ssh_private_key:
+          ${{ secrets.GIT_SSH_PRIVATE_KEY }}
