@@ -1,8 +1,0 @@
-name: what_time_is_it
-run-name: Giving the date
-on: [push]
-jobs:
-  date:
-    runs-on: ubuntu-latest
-    steps:
-        - run: date
